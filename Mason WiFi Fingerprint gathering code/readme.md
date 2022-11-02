@@ -3,6 +3,7 @@ This README is for data.py. Written by Mason Pun z5316520 for this for COMP6773,
 How to use data.py:
 
 python3 data.py -> Produce a prompt that explains: "r" to run the algorithm, "s" to store data
+This algorithm is merly for experimental purposes, it does not use machine learning and is not a part of our final MVP for COMP6733 project.
 
 You can input r or s directly as an argument to the code in the run call.
 
