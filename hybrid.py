@@ -1,7 +1,8 @@
 #Program to combine Wi-Fi Fingerprint percentage of accurcy and Image Classification percentage of accuracy.
 
 #The index of the array is the location number and the value is the percentage of accuracy.
-#These arrays are hardcoded/empty for an example as image classification and Wi-Fi fingerprint algorithms are not yet complete. Obviously these arrays must be the same length.
+#Locations can be implemented with an enum where the number is the index of the array, and that tells is the location name.
+#These arrays are hardcoded/empty for an example as image classification and Wi-Fi fingerprint algorithms have not been completed yet. Obviously these arrays must be the same length.
 wifi_percentages = []
 image_percentages = []
 
