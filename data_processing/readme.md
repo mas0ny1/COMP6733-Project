@@ -5,5 +5,3 @@ Filtered json file = filtereddata.json
 filtereddata.json should be the input for the machine learning algorithm.
 
 
-Applies Band-Pass Filtering to remove outliers from the data.
-
