@@ -1,10 +1,14 @@
 import json
+from collections import defaultdict
 #Written by Mason Pun z5316520
 #Modified by Jerry Lam z5057498
 #This removes all non-UNSW SSID+Bssid entries from the database, the list of the ssid to keep is in the array "ssid_to_keep"
 #To make the format suitable for the knn algorithm entry
 
 #Open Json File
+
+bssid = defaultdict(dict)
+
 def open_json_file(file_path):
     with open(file_path, 'r') as f:
         return json.load(f)
@@ -20,7 +24,9 @@ def filter_data():
     for location in database:
 
         #Loop through location key (fingerprint)
-        for wifi_ap_entry in location.values():
+        for wifi_ap_entry_items in location.items():
+            wifi_ap_entry_loc = wifi_ap_entry_items[0]
+            wifi_ap_entry = wifi_ap_entry_items[1]
             #If a SSID in ssid_to_keep is in the key, keep it
             for ssid_bssid in list(wifi_ap_entry.items()):
                 ssid = ssid_bssid[0].split(",")[0][1:]
@@ -29,14 +35,21 @@ def filter_data():
                 #A match was found, keep the key (do nothing)
                 #print(ssid)
                 if (ssid in ssid_to_keep):
+                    if wifi_ap_entry_loc not in bssid[mac]:
+                        bssid[mac][wifi_ap_entry_loc] = [rssi]
+                    else:
+                        bssid[mac][wifi_ap_entry_loc].append(rssi)
                     #print("keep")
-                    print(mac, rssi)
+                    #print(mac, rssi)
                     pass
                 else:
                     #No match was found, delete the key
                     #print("REMOVING")
                     del wifi_ap_entry[ssid_bssid[0]]
-    
+                
+                #print(location)
+        
+    print(bssid)         
     return database
 
 if __name__ == "__main__":
