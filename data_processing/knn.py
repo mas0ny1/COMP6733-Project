@@ -60,12 +60,10 @@ def filter_data(filename):
 bssid = filter_data("data.json")
 test_bssid = filter_data("testing_sample.json")
 
-    #print(df)
 
 #X_train, X_test, y_train, y_test = train_test_split(df["rssi"], df["loc"], test_size = 0.2)
 
 #allocate the data and location into a 2D array
-#example: [RSSI value, location 1]
 
 #knn algorithm initiate
 n = 3
@@ -94,9 +92,3 @@ for e in test_bssid.items():
 #predicted_y = knn.predict(test_bssid.values())
 #print(test_bssid)
 #print(predicted_y)
-
-
-#predict location
-#predicted_y = knn.predict(test_list)
-#print(predicted_y)
-
