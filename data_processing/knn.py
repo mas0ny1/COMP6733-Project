@@ -20,7 +20,7 @@ def open_json_file(file_path):
 def filter_data(filename):
     bssid = defaultdict(dict)
     database = open_json_file(filename)
-    
+
     # Converts temp_dict into a dictionary containing all bssids in the database
     ssid_to_keep = ['eduroam', 'uniwide', 'UNSW Guest', 'Global_Students']
 
@@ -53,8 +53,8 @@ def filter_data(filename):
                     #No match was found, delete the key
                     #print("REMOVING")
                     del wifi_ap_entry[ssid_bssid[0]]
-                
-                #print(location)        
+
+                #print(location)
     return bssid
 
 bssid = filter_data("data.json")
@@ -75,7 +75,10 @@ le = preprocessing.LabelEncoder()
 le.fit(unique_loc)
 
 result_list = []
-
+matched_sum = 0
+total = 0
+largest = 0
+matched_location = ""
 for e in test_bssid.items():
     df = pd.DataFrame(data = bssid[e[0]]["rssi"])
 #reshape the 1D data into 2D array (requirment of knn)
@@ -87,8 +90,20 @@ for e in test_bssid.items():
     result_list.append(le.inverse_transform(predicted_y))
     for location in sorted(unique_loc, key=lambda x: int(x.split("_")[-1])):
         percentage = ((result_list.count(location)) / len(result_list))*100
-        
+
         print(location, str(percentage)+"%")
+        if (percentage > largest):
+            largest = percentage
+            matched_location = location
+
+
+        if matched_location == "location_2":
+            matched_sum += 1
+            total += 1
+        else:
+            total += 1
+
+print(matched_sum/total)
 #predicted_y = knn.predict(test_bssid.values())
 #print(test_bssid)
 #print(predicted_y)
