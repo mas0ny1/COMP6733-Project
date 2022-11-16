@@ -105,14 +105,10 @@ with open("data2.json", 'r') as f:
     filterdatainput = json.load(f)
 
 for index in filterdatainput:
-    g = open("testing_sample.json", "w")
-    input = str(index).replace("\'","\"")
-    g.write(f"[{input}]")
-    g.close()
     
 
     bssid = filter_data("data.json")
-    test_bssid = filter_data("testing_sample.json")
+    test_bssid = filter_data_dict(index)
     #X_train, X_test, y_train, y_test = train_test_split(df["rssi"], df["loc"], test_size = 0.2)
 
     #allocate the data and location into a 2D array
@@ -134,7 +130,7 @@ for index in filterdatainput:
     array = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     for e in test_bssid.items():
         print(e)
-        df = pd.DataFrame(data = bssid[e[0]["rssi"]])
+        df = pd.DataFrame(data = bssid[e[0]]['rssi'])
     #reshape the 1D data into 2D array (requirment of knn)
     #test_list = np.array(test_lisst).reshape(-1, 1)
         largest = 0.0
