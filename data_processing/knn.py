@@ -19,13 +19,13 @@ def open_json_file(file_path):
 #Filter database to keep only the SSIDS we need
 def filter_data(filename):
     bssid = defaultdict(dict)
-    database = open_json_file(filename)
+    location = open_json_file(filename)
 
     # Converts temp_dict into a dictionary containing all bssids in the database
     ssid_to_keep = ['eduroam', 'uniwide', 'UNSW Guest', 'Global_Students']
 
     #Loop through array of dictionaries
-    for location in database:
+    #for location in database:
 
         #Loop through location key (fingerprint)
         for wifi_ap_entry_items in location.items():
@@ -40,20 +40,13 @@ def filter_data(filename):
                 rssi = ssid_bssid[1]
                 #A match was found, keep the key (do nothing)
                 #print(ssid)
-                if (ssid in ssid_to_keep):
-                    if not bssid[mac]:
-                        bssid[mac]["loc"] = list()
-                        bssid[mac]["rssi"] = list()
-                    bssid[mac]["loc"].append(wifi_ap_entry_loc)
-                    bssid[mac]["rssi"].append(rssi)
-                    #print("keep")
-                    #print(mac, rssi)
-                    pass
-                else:
-                    #No match was found, delete the key
-                    #print("REMOVING")
-                    del wifi_ap_entry[ssid_bssid[0]]
-
+                if not bssid[mac]:
+                    bssid[mac]["loc"] = list()
+                    bssid[mac]["rssi"] = list()
+                bssid[mac]["loc"].append(wifi_ap_entry_loc)
+                bssid[mac]["rssi"].append(rssi)
+                #print("keep")
+                #print(mac, rssi)
                 #print(location)
     return bssid
 
