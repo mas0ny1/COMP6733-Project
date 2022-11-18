@@ -30,6 +30,8 @@ def avg_filter_data(database):
                     new_locs[loc][ssid_mac][1] += 1
             
     for loc, sample in new_locs.items():
+        if loc == 'location_31':
+            continue
         for ssid_mac, rssi_tuple in sample.items():
             if not rssi_tuple[1] <= (locs_count[loc] / 2):
                 output[loc][ssid_mac] = rssi_tuple[0] / rssi_tuple[1]
