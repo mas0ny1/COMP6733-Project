@@ -26,7 +26,7 @@ def match(database, fingerprint):
             
 # Returns true if top floor, else bottom floor
 def localise(matches):
-    k = 5
+    k = 7
     length = len(matches)
     length = min(length, k)
     if length > 0 and length % 2 == 0:
