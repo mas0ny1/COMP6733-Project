@@ -28,26 +28,26 @@ def filter_data(filename):
     #for location in database:
 
         #Loop through location key (fingerprint)
-        for wifi_ap_entry_items in location.items():
-            wifi_ap_entry_loc = wifi_ap_entry_items[0]
-            if wifi_ap_entry_loc not in unique_loc:
-                unique_loc.append(wifi_ap_entry_loc)
-            wifi_ap_entry = wifi_ap_entry_items[1]
-            #If a SSID in ssid_to_keep is in the key, keep it
-            for ssid_bssid in list(wifi_ap_entry.items()):
-                ssid = ssid_bssid[0].split(",")[0][1:]
-                mac = ssid_bssid[0].split(",")[1][1:-1]
-                rssi = ssid_bssid[1]
-                #A match was found, keep the key (do nothing)
-                #print(ssid)
-                if not bssid[mac]:
-                    bssid[mac]["loc"] = list()
-                    bssid[mac]["rssi"] = list()
-                bssid[mac]["loc"].append(wifi_ap_entry_loc)
-                bssid[mac]["rssi"].append(rssi)
-                #print("keep")
-                #print(mac, rssi)
-                #print(location)
+    for wifi_ap_entry_items in location.items():
+        wifi_ap_entry_loc = wifi_ap_entry_items[0]
+        if wifi_ap_entry_loc not in unique_loc:
+            unique_loc.append(wifi_ap_entry_loc)
+        wifi_ap_entry = wifi_ap_entry_items[1]
+        #If a SSID in ssid_to_keep is in the key, keep it
+        for ssid_bssid in list(wifi_ap_entry.items()):
+            ssid = ssid_bssid[0].split(",")[0][1:]
+            mac = ssid_bssid[0].split(",")[1][1:-1]
+            rssi = ssid_bssid[1]
+            #A match was found, keep the key (do nothing)
+            #print(ssid)
+            if not bssid[mac]:
+                bssid[mac]["loc"] = list()
+                bssid[mac]["rssi"] = list()
+            bssid[mac]["loc"].append(wifi_ap_entry_loc)
+            bssid[mac]["rssi"].append(rssi)
+            #print("keep")
+            #print(mac, rssi)
+            #print(location)
     return bssid
 
 bssid = filter_data("data.json")
