@@ -16,8 +16,8 @@ def match(database, fingerprint):
         dist = 0.0
         count = 0
         for ssid_mac, rssi in sample.items():
-            if ssid_mac in fingerprint:
-                dist += pow(abs(rssi), 2)
+            if ssid_mac in fingerprint.keys():
+                dist += pow(abs(abs(rssi) - abs(fingerprint[ssid_mac])), 2)
                 count += 1
         if count > finger_size / 2:
             matches.append(tuple((dist / count, loc)))
@@ -26,7 +26,7 @@ def match(database, fingerprint):
             
 # Returns true if top floor, else bottom floor
 def localise(matches):
-    k = 7
+    k = 5
     length = len(matches)
     length = min(length, k)
     if length > 0 and length % 2 == 0:
@@ -48,6 +48,7 @@ def test():
     k = 5
     for loc, fingerprint in fingerprints.items():
         matches = match(database, fingerprint)
+        #print(matches)
         length = len(matches)
         length = min(length, k)
         if length > 0 and length % 2 == 0:
@@ -59,8 +60,12 @@ def test():
                 floor3 += 1
             else:
                 floor2 += 1
+            if matches[i][1] == loc:
+                correct += 1
+                break
         if floor3 > floor2 and int(loc.split("_")[1]) <= 15 or floor3 < floor2 and int(loc.split("_")[1]) > 15:
-            correct += 1
+            #correct += 1
+            pass
         count += 1
     print(correct, count)
 
